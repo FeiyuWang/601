@@ -1,3 +1,6 @@
+---
+title: Document Center
+---
 <p style="text-align: center;">Brief research for Visual Question Answering
 	
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The topic I have chosen is visual question answering, and the topic is about using a picture as input, analyze it using machine learning. After the process, we can achieve the function of a user asks a question using plain text, and we use natural language processing tools to analyze what the user is asking and feedback the answer.<br />
