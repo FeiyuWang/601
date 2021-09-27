@@ -1,12 +1,16 @@
 import requests
 import geocoder
 
-bearer_token = '<bearer_token>'
-
+bearer_token = 'AAAAAAAAAAAAAAAAAAAAAJBJUAEAAAAAxzWiswrObI%2BHNXVvXBs4y9GaZZ0%3Dn4FJId0LJqydVKMtBUKdwYLCwvVg2tELajflX2fYg4dT4FEBZq'
 
 
 def create_url(woeid):
     url = "https://api.twitter.com/1.1/trends/place.json?id={}".format(woeid)
+    return url
+
+
+def searchtweets(topic):
+    url = "https://api.twitter.com/1.1/search/tweets.json?q={}&result_type=popular".format(topic)
     return url
 
 
@@ -27,13 +31,32 @@ def connect_to_endpoint(url):
     return response.json()
 
 
+def get_trending_tweets():
+    url = "https://www.metaweather.com/api/location/search/?lattlong={},{}".format(
+        geocoder.ip('me').latlng[0], geocoder.ip('me').latlng[1])
+    woeid = connect_to_endpoint(url)[0]["woeid"]
+    connect_to_endpoint(url)
+    url = create_url(woeid)
+    json_response = connect_to_endpoint(url)[0]["trends"][0]['name']
+    url = searchtweets(json_response)
+    json_response = connect_to_endpoint(url)
+    text = ""
+    i = 0
+    while len(text.split()) < 20:
+        text += json_response['statuses'][i]['text']
+        i += 1
+    print(text)
+    return text
+
+
 def main():
     print("find out what is trending on Twitter near your city")
     while True:
         while True:
             option = input("1: IP location\n2: Input your own location\n")
             if option == "1":
-                url = "https://www.metaweather.com/api/location/search/?lattlong={},{}".format(geocoder.ip('me').latlng[0], geocoder.ip('me').latlng[1])
+                url = "https://www.metaweather.com/api/location/search/?lattlong={},{}".format(
+                    geocoder.ip('me').latlng[0], geocoder.ip('me').latlng[1])
                 woeid = connect_to_endpoint(url)[0]["woeid"]
                 break
             elif option == "2":
@@ -56,6 +79,6 @@ def main():
         except Exception as e:
             print("Location not found, please input a new one")
 
+
 if __name__ == "__main__":
     main()
-
