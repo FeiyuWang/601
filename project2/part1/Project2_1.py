@@ -1,7 +1,7 @@
 import requests
 import geocoder
 
-bearer_token = 'AAAAAAAAAAAAAAAAAAAAAJBJUAEAAAAAxzWiswrObI%2BHNXVvXBs4y9GaZZ0%3Dn4FJId0LJqydVKMtBUKdwYLCwvVg2tELajflX2fYg4dT4FEBZq'
+bearer_token = 'Your Token'
 
 
 def create_url(woeid):
